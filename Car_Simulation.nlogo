@@ -19,7 +19,7 @@ to setup
     set speed 0.1 + random-float 0.9
 
 
-    while [ any? other turtles-here ] [ fd 1 ]
+    while [ any? other turtles-here ] [ fd 1 ] ; Zorgt ervoor dat de autos mooi verspreid komen te staan (anders staan er veel op 1 kluitje)
   ]
   reset-ticks
 end
@@ -35,12 +35,10 @@ end
 
 to go
   ask turtles [
-    let next-car one-of turtles-on patch-ahead 2
-    ifelse next-car != nobody
-      [ set speed [ speed ] of next-car - 0.050 ] ;Rem af als er een auto voor je zit
+    let next-car one-of turtles-on patch-ahead 1 ; defineert next-car als de auto die (eventueel) op de voorliggende patch rijd.
+    ifelse next-car = nobody ; Checkt of er wel of niet een auto op de voorliggende patch rijd
       [ set speed speed + (0.0050 + random-float 0.0040) ] ; Versnel als er geen auto voor je zit
-
-
+      [ set speed [ speed ] of next-car - 0.050 ] ;Rem af als er een auto voor je zit
     if speed < 0 [ set speed 0 ]
     if speed > speed_limit [ set speed speed_limit ]
     fd speed
@@ -56,7 +54,8 @@ end
 
 ;; Bronnen:
 ;; While loop: http://ccl.northwestern.edu/netlogo/docs/dict/while.html
-;;
+;; Let/Nobody: http://ccl.northwestern.edu/netlogo/docs/dict/let.html
+;; turtles-on/patch-ahead: http://ccl.northwestern.edu/netlogo/docs/dict/turtles-on.html
 @#$#@#$#@
 GRAPHICS-WINDOW
 243
