@@ -38,7 +38,7 @@ to go
     let next-car one-of turtles-on patch-ahead 2
     ifelse next-car != nobody
       [ set speed [ speed ] of next-car - 0.050 ] ;Rem af als er een auto voor je zit
-      [ set speed speed + 0.0050 ] ; Versnel als er geen auto voor je zit
+      [ set speed speed + (0.0050 + random-float 0.0040) ] ; Versnel als er geen auto voor je zit
 
 
     if speed < 0 [ set speed 0 ]
@@ -46,6 +46,10 @@ to go
     fd speed
   ]
   tick
+end
+
+to-report avr_speed
+  report mean [ speed ] of turtles
 end
 
 
@@ -128,36 +132,6 @@ speed_limit
 NIL
 HORIZONTAL
 
-SLIDER
-35
-143
-207
-176
-deceleration
-deceleration
-0
-0.100
-0.1
-0.001
-1
-NIL
-HORIZONTAL
-
-SLIDER
-35
-181
-207
-214
-acceleration
-acceleration
-0
-0.0100
-0.005
-0.0001
-1
-NIL
-HORIZONTAL
-
 BUTTON
 153
 63
@@ -191,6 +165,35 @@ NIL
 NIL
 NIL
 1
+
+MONITOR
+412
+262
+575
+307
+NIL
+avr_speed
+17
+1
+11
+
+PLOT
+589
+260
+1258
+410
+Average Speed
+NIL
+Speed
+0.0
+10.0
+0.0
+1.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -2674135 true "" "set-plot-y-range 0 1\nplot avr_speed"
 
 @#$#@#$#@
 ## WHAT IS IT?
