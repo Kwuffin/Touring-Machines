@@ -36,7 +36,7 @@ end
 to go
   ask turtles [
     let next-car one-of turtles-on patch-ahead 2
-    ifelse next-car != nobody
+    ifelse next-car = nobody
       [ set speed [ speed ] of next-car - 0.050 ] ;Rem af als er een auto voor je zit
       [ set speed speed + (0.0050 + random-float 0.0040) ] ; Versnel als er geen auto voor je zit
 
